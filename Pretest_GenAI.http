@@ -1,0 +1,32 @@
+@Pretest_GenAI_HostAddress = http://localhost:5226
+
+### 1. Test Successful Summarize Request (Example from PDF)
+POST {{Pretest_GenAI_HostAddress}}/api/summaries
+Content-Type: application/json
+
+{
+  "content": "The library opens from 8:00 AM to 5:00 PM, Monday to Friday.\nStudents can borrow up to three books for 14 days.\nLate returns may result in a fine."
+}
+
+### 2. Test Invalid Request - Blank Content (Expect HTTP 400)
+POST {{Pretest_GenAI_HostAddress}}/api/summaries
+Content-Type: application/json
+
+{
+  "content": "   "
+}
+
+### 3. Test Invalid Request - Missing Content (Expect HTTP 400)
+POST {{Pretest_GenAI_HostAddress}}/api/summaries
+Content-Type: application/json
+
+{
+}
+
+### 4. Get All Saved Summaries from SQL Server
+GET {{Pretest_GenAI_HostAddress}}/api/summaries
+Accept: application/json
+
+### 5. Get Summary by ID
+GET {{Pretest_GenAI_HostAddress}}/api/summaries/1
+Accept: application/json
